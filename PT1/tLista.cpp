@@ -7,6 +7,10 @@ ListaEnlazada::ListaEnlazada(){
     head = tail = curr = new Nodos;
 }
 
+ListaEnlazada::~ListaEnlazada(){
+    delete[] head;
+}
+
 void ListaEnlazada::INTERCAMBIAR(tElemLista n){
     Nodos* newNodo = new Nodos;
     newNodo->data = n;
@@ -62,7 +66,7 @@ void ListaEnlazada::clear(){
     while(listsize>0){
         Nodos* aux = head->sig;
         delete[] head;
-        head == aux;
+        head = aux;
         listsize--;
     }
 

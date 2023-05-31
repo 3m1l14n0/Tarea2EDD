@@ -17,6 +17,7 @@ class ListaEnlazada {
         unsigned int pos;
     public:
         ListaEnlazada();
+        ~ListaEnlazada();
         void INTERCAMBIAR(tElemLista n);
         int INSERTAR(tElemLista n);
         void BORRAR();

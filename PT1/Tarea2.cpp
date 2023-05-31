@@ -18,8 +18,7 @@ void EscribirArchivo(ListaEnlazada SecModificada){
 
 
 
-int main(){
-    
+int main(){   
     ListaEnlazada SecuenciaBase;
     fstream input;
     input.open("secuencias-nucleotidos.txt", ios::in);
@@ -37,8 +36,8 @@ int main(){
     input >> cantSec;
     int pos;
     tElemLista n;
+    ListaEnlazada SecModificada;
     for(int i = 0; i < cantSec; i++){
-        ListaEnlazada SecModificada;
         for(int j = 0; j < SecuenciaBase.length(); j++){
             SecuenciaBase.moveToPos(j);
             SecModificada.append(SecuenciaBase.getValue());
@@ -65,7 +64,9 @@ int main(){
             }
         }
         EscribirArchivo(SecModificada);
+        SecModificada.clear();
     }
+    SecuenciaBase.clear();
     input.close();
     return 0;
 }
