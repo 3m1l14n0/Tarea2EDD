@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "tLista.hpp"
+#include "tLista.cpp"
 
 using namespace std;
 
