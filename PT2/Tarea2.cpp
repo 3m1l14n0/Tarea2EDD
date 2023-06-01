@@ -1,4 +1,4 @@
-#include "tABB.hpp"
+#include "tABB.cpp"
 
 tABB LucesEnc;
 
