@@ -5,19 +5,51 @@ tABB::tABB(){
     nElems=0;
 }
 
+
+// funcion recursiva para destructor
+void destHelp(tNodoArbolBin *nodo){
+    if(nodo == NULL) return;
+    destHelp(nodo->izq); // visita hijo izquierdo en in-orden
+    delete[] nodo;
+    destHelp(nodo->der); // visita hijo derecho en in-orden
+}
+
+/*****
+* ~tABB
+******
+* Destructor para tda tABB. Recorre el arbol en inOrden y dvuelve la memoria de cada nodo que visita.
+******
+* Input:
+* Sin input
+* .......
+******
+* Returns:
+* Sin return
+*****/
+
+tABB::~tABB(){
+    destHelp(raiz);
+}
+
+
+// recursiva para inOrdenCont
 void inOrdenHelp(tNodoArbolBin *nodo, int &cont) { 
     if(nodo == NULL) return;
     inOrdenHelp(nodo->izq, cont); // visita hijo izquierdo en in-orden
     cont++;
-    inOrdenHelp (nodo->der, cont); // visita hijo derecho en in-orden
+    inOrdenHelp(nodo->der, cont); // visita hijo derecho en in-orden
 }
 
-int tABB::inOrden() {
+
+//Cuenta la cantidad de nodos que hay
+int tABB::inOrdenCont() {
     int cont = 0;
     inOrdenHelp(raiz, cont);
     return cont;
 }
 
+
+// recursiva para insert
 void rinsert(tNodoArbolBin* &nodo, tElem item){
     if (nodo == NULL) {
         tNodoArbolBin* newNodo = new tNodoArbolBin;
@@ -38,7 +70,7 @@ void tABB::insert(tElem item){
     nElems++;
 }
 
-// Funcion auxiliar para poder encontrar
+// Funcion auxiliar para verificar si el elemento esta en el arbol
 bool findHelp(tNodoArbolBin* nodo, tElem item) {
  if (nodo == NULL) return 0; // item no está en el ABB
  if (nodo->info == item) return 1; // item encontrado
@@ -52,6 +84,8 @@ bool tABB::find(tElem x){
     return findHelp(raiz, x);
 }
 
+
+// recursiva para lowerbound
 int rlowerbound(tNodoArbolBin *nodo, tElem item) {
     if (nodo == NULL) return -1;
     else if (nodo->info == item) return item;

@@ -19,8 +19,9 @@ class tABB {
         int nElems; // cantidad de elementos en el ABB
     public:
         tABB();
+        ~tABB();
         void insert(tElem item);
         bool find(tElem item);
         int lower_bound(tElem item);
-        int inOrden();
+        int inOrdenCont(); // Cuenta los elementos del arbol
 };

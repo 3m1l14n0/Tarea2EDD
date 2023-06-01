@@ -19,12 +19,11 @@ class ListaEnlazada {
         ListaEnlazada();
         ~ListaEnlazada();
         void INTERCAMBIAR(tElemLista n);
-        int INSERTAR(tElemLista n);
+        void INSERTAR(tElemLista n);
         void BORRAR();
-        void moveToPos(int pos);
+        void moveToPos(unsigned int pos);
         int append(tElemLista item);
         tElemLista getValue();
         int length();
-        void clear();
 };
 

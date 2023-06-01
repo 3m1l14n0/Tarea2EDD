@@ -5,68 +5,60 @@
 
 using namespace std;
 
-void EscribirArchivo(ListaEnlazada SecModificada){
+void EscribirArchivo(ListaEnlazada* SecModificada){
     fstream output;
     output.open("secuencias-reconstruidas.txt", ios::app);
-    for(int i = 0; i < SecModificada.length(); i++){
-        SecModificada.moveToPos(i);
-        output << SecModificada.getValue();
+    for(int i = 0; i < SecModificada->length(); i++){
+        SecModificada->moveToPos(i);
+        output << SecModificada->getValue();
     }
     output << "\n";
     output.close();
 }
 
 
-
-int main(){   
-    ListaEnlazada SecuenciaBase;
+int main(){
     fstream input;
     input.open("secuencias-nucleotidos.txt", ios::in);
     if(!input.is_open()){
         cout << "Error al abrir el archivo \"secuencias-nucleotidos.txt\"\n";
         exit(1);
     }
-    int lenSec, cantSec;
-    input >> lenSec;
-    for(int i = 0; i < lenSec; i++){
-        tElemLista elemSec;
-        input >> elemSec;
-        SecuenciaBase.append(elemSec);
-    }
-    input >> cantSec;
-    int pos;
-    tElemLista n;
-    ListaEnlazada SecModificada;
-    for(int i = 0; i < cantSec; i++){
-        for(int j = 0; j < SecuenciaBase.length(); j++){
-            SecuenciaBase.moveToPos(j);
-            SecModificada.append(SecuenciaBase.getValue());
+    int lenSec, cantidadSec;
+    string sec;
+    input >> lenSec >> sec >> cantidadSec;
+    for(int i = 0; i < cantidadSec; i++){
+        int pos;
+        tElemLista n;
+        ListaEnlazada Secuencia;
+        for(int j = 0; j < lenSec; j++){
+            Secuencia.moveToPos(j);
+            Secuencia.INSERTAR(sec[j]);
         }
         int cantMod;
         input >> cantMod;
         for(int j = 0; j < cantMod; j++){
-            string mod;
-            input >> mod;
-            if(mod == "INSERTAR"){
+            string modificacion;
+            input >> modificacion;
+            if(modificacion == "INSERTAR"){
                 input >> pos >> n;
-                SecModificada.moveToPos(pos);
-                SecModificada.INSERTAR(n);
+                Secuencia.moveToPos(pos);
+                Secuencia.INSERTAR(n);
             }
-            else if(mod == "INTERCAMBIAR"){
+            if(modificacion == "INTERCAMBIAR"){
                 input >> pos >> n;
-                SecModificada.moveToPos(pos);
-                SecModificada.INTERCAMBIAR(n);
+                Secuencia.moveToPos(pos);
+                Secuencia.INTERCAMBIAR(n);
             }
-            else if(mod == "BORRAR"){
+            if(modificacion == "BORRAR"){
                 input >> pos;
-                SecModificada.moveToPos(pos);
-                SecModificada.BORRAR();
+                Secuencia.moveToPos(pos);
+                Secuencia.BORRAR();
             }
         }
-        EscribirArchivo(SecModificada);
-        SecModificada.clear();
+        EscribirArchivo(&Secuencia);
     }
-    SecuenciaBase.clear();
+
     input.close();
     return 0;
 }
